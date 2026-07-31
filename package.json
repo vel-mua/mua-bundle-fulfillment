@@ -1,0 +1,12 @@
+{
+  "name": "mua-bundle-fulfillment",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shopify bundle fulfillment automation for Mua Wellness.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test"
+  }
+}
