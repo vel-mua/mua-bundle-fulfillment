@@ -7,9 +7,10 @@ It receives Shopify `orders/create` webhooks, reads `_inventory_plan` and `_laun
 ## Deployment setup
 
 1. Deploy this repository to a Vercel production project.
-2. Add the values in `.env.example` as Vercel environment variables. Keep the Admin API token and API secret private.
+2. Add the values in `.env.example` as Vercel environment variables. The Upstash integration supplies its Redis values automatically.
 3. Set the Shopify app's App URL to the Vercel deployment URL.
-4. Subscribe the app to Shopify's `orders/create` webhook and point it at `/api/webhooks/orders-create`.
+4. Add `/api/auth/callback` as the Shopify app redirect URL, then open `/api/auth/install` once while signed in to install the app. The Admin token is stored privately in Redis.
+5. Subscribe the app to Shopify's `orders/create` webhook and point it at `/api/webhooks/orders-create`.
 5. Send a test bundle order before enabling the automation for customer orders.
 
 ## Safety rules
