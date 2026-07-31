@@ -12,7 +12,10 @@ module.exports = async (request, response) => {
     requested_token_type: 'urn:shopify:params:oauth:token-type:offline-access-token',
   });
   const result = await fetch(`https://${process.env.SHOPIFY_SHOP_DOMAIN}/admin/oauth/access_token`, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded', Accept: 'application/json' }, body });
-  if (!result.ok) return response.status(401).send('Shopify token exchange failed.');
+  if (!result.ok) {
+    console.error('Shopify token exchange failed', result.status, await result.text());
+    return response.status(401).send('Shopify token exchange failed.');
+  }
   const { access_token } = await result.json();
   await saveAdminToken(access_token);
   response.status(200).json({ connected: true });
