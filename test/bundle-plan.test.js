@@ -18,12 +18,13 @@ test("reads the readable inventory-plan format used by the storefront theme", ()
   const plan = componentPlan({ line_items: [{ id: 11, properties: [
     { name: "_bundle_group", value: "tolu-1" },
     { name: "_inventory_plan", value: "2× MUA-HYD-TN-15PK (Tropical Nectar), 1× MUA-HYD-GS-15PK (Golden Sunrise)" },
-    { name: "_launch_extras", value: "1× MW-STCKRPACK-1 (Stickers), 1× MW-FROTH-1 (Frother)" },
+    { name: "_launch_extras", value: "1× MW-STCKRPACK-1 (Stickers), 1× MW-FROTH-1 (Frother), 1× LW-SSTS-L (Short Sleeve T-Shirt (L))" },
   ] }] });
   assert.deepEqual(plan, [
     { sku: "MUA-HYD-TN-15PK", quantity: 2, source: "pouch", group: "tolu-1" },
     { sku: "MUA-HYD-GS-15PK", quantity: 1, source: "pouch", group: "tolu-1" },
     { sku: "MW-STCKRPACK-1", quantity: 1, source: "gift", group: "tolu-1" },
     { sku: "MW-FROTH-1", quantity: 1, source: "gift", group: "tolu-1" },
+    { sku: "LW-SSTS-L", quantity: 1, source: "gift", group: "tolu-1" },
   ]);
 });
