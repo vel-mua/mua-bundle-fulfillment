@@ -28,3 +28,30 @@ test("reads the readable inventory-plan format used by the storefront theme", ()
     { sku: "LW-SSTS-L", quantity: 1, source: "gift", group: "tolu-1" },
   ]);
 });
+
+test("skips first-order gifts on Recharge recurring orders but keeps pouch components", () => {
+  const plan = componentPlan({
+    tags: "Subscription Recurring Order, Recharge",
+    line_items: [{ id: 12, properties: [
+      { name: "_bundle_group", value: "tolu-renewal-1" },
+      { name: "_inventory_plan", value: "3× MUA-HYD-TN-15PK (Tropical Nectar)" },
+      { name: "_launch_extras", value: "1× MW-STCKRPACK-1 (Stickers), 1× MW-BTTL-BLACK (MW Bottle)" },
+    ] }],
+  });
+
+  assert.deepEqual(plan, [
+    { sku: "MUA-HYD-TN-15PK", quantity: 3, source: "pouch", group: "tolu-renewal-1" },
+  ]);
+});
+
+test("recognizes recurring-order tags supplied as an array", () => {
+  const plan = componentPlan({
+    tags: ["Recharge", " Subscription Recurring Order "],
+    line_items: [{ id: 13, properties: [
+      { name: "_bundle_group", value: "lima-renewal-1" },
+      { name: "_launch_extras", value: "1× MW-BTTL-BLACK (MW Bottle)" },
+    ] }],
+  });
+
+  assert.deepEqual(plan, []);
+});
