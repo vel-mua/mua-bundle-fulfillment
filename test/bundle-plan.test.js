@@ -2,12 +2,15 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const {
   BundlePlanValidationError,
+  DEFAULT_LIMA_OFFER_CUTOVER_AT,
   DEFAULT_TOLU_OFFER_CUTOVER_AT,
   componentPlan,
 } = require("../lib/bundle-plan");
 
 const POST_CUTOVER = "2026-08-20T16:57:34Z";
 const PRE_CUTOVER = "2026-08-10T06:24:22Z";
+const CURRENT_LIMA_EXTRAS = "1x MW-STCKRPACK-1, 1x MW-FROTH-1";
+const LEGACY_LIMA_EXTRAS = "1x MW-FROTH-1, 1x MW-STCKRPACK-1, 1x MW-TOTBG-1, 1x MW-BTTL-BLACK, 1x LW-SSTS-3XL";
 
 function order(values = {}) {
   return { created_at: POST_CUTOVER, ...values };
@@ -32,6 +35,15 @@ function bundleLine({
       { name: "_launch_extras", value: launchExtras },
     ],
   };
+}
+
+function limaLine(values = {}) {
+  return bundleLine({
+    sku: "MUA-LIMA-BUN-26",
+    inventoryPlan: "2x MUA-HYD-TN-15PK, 1x MUA-HYD-IB-15PK, 2x MUA-HYD-GS-15PK",
+    launchExtras: CURRENT_LIMA_EXTRAS,
+    ...values,
+  });
 }
 
 function assertInvalidPlan(order, pattern) {
@@ -160,6 +172,105 @@ test("honors an explicit Tolu offer cutoff override", () => {
 test("rejects a Tolu order when its creation timestamp is unavailable", () => {
   assertInvalidPlan(
     { line_items: [bundleLine()] },
+    /Order creation timestamp is missing or invalid/i,
+  );
+});
+
+test("accepts the current one-time Lima gifts", () => {
+  const plan = componentPlan(order({ line_items: [limaLine()] }));
+
+  assert.deepEqual(plan.slice(-2), [
+    { sku: "MW-STCKRPACK-1", quantity: 1, source: "gift", group: "bundle-1" },
+    { sku: "MW-FROTH-1", quantity: 1, source: "gift", group: "bundle-1" },
+  ]);
+});
+
+test("accepts the current initial-subscription Lima bottle gift", () => {
+  const plan = componentPlan(order({
+    tags: ["Subscription", "Subscription First Order"],
+    line_items: [limaLine({
+      sellingPlan: true,
+      launchExtras: `${CURRENT_LIMA_EXTRAS}, 1x MW-BTTL-BLACK`,
+    })],
+  }));
+
+  assert.deepEqual(plan.slice(-3).map((item) => item.sku), [
+    "MW-STCKRPACK-1",
+    "MW-FROTH-1",
+    "MW-BTTL-BLACK",
+  ]);
+});
+
+test("rejects an old preorder Lima cart when the order is placed after cutover", () => {
+  assertInvalidPlan(
+    order({
+      line_items: [limaLine({ launchExtras: LEGACY_LIMA_EXTRAS })],
+    }),
+    /MUA-LIMA-BUN-26 has invalid launch extras.*LW-SSTS-3XL.*MW-BTTL-BLACK.*MW-TOTBG-1/i,
+  );
+});
+
+test("keeps a pre-cutover historical Lima preorder plan valid", () => {
+  const plan = componentPlan(order({
+    created_at: PRE_CUTOVER,
+    line_items: [limaLine({ launchExtras: LEGACY_LIMA_EXTRAS })],
+  }));
+
+  assert.deepEqual(plan.slice(-5).map((item) => item.sku), [
+    "MW-FROTH-1",
+    "MW-STCKRPACK-1",
+    "MW-TOTBG-1",
+    "MW-BTTL-BLACK",
+    "LW-SSTS-3XL",
+  ]);
+});
+
+test("applies current Lima rules at the configured cutoff", () => {
+  assertInvalidPlan(
+    order({
+      created_at: DEFAULT_LIMA_OFFER_CUTOVER_AT,
+      line_items: [limaLine({ launchExtras: LEGACY_LIMA_EXTRAS })],
+    }),
+    /MUA-LIMA-BUN-26 has invalid launch extras/i,
+  );
+});
+
+test("honors an explicit Lima offer cutoff override", () => {
+  const plan = componentPlan(
+    order({ line_items: [limaLine({ launchExtras: LEGACY_LIMA_EXTRAS })] }),
+    { limaOfferCutoverAt: "2026-09-01T00:00:00Z" },
+  );
+
+  assert.deepEqual(plan.slice(-5).map((item) => item.sku), [
+    "MW-FROTH-1",
+    "MW-STCKRPACK-1",
+    "MW-TOTBG-1",
+    "MW-BTTL-BLACK",
+    "LW-SSTS-3XL",
+  ]);
+});
+
+test("rejects excess current Lima gift quantities", () => {
+  assertInvalidPlan(
+    order({ line_items: [limaLine({
+      launchExtras: "2x MW-STCKRPACK-1, 1x MW-FROTH-1",
+    })] }),
+    /MUA-LIMA-BUN-26 has invalid launch extras.*2x MW-STCKRPACK-1/i,
+  );
+});
+
+test("rejects an unknown current Lima gift SKU", () => {
+  assertInvalidPlan(
+    order({ line_items: [limaLine({
+      launchExtras: `${CURRENT_LIMA_EXTRAS}, 1x UNKNOWN-FREE-SKU`,
+    })] }),
+    /MUA-LIMA-BUN-26 has invalid launch extras.*UNKNOWN-FREE-SKU/i,
+  );
+});
+
+test("rejects a Lima order when its creation timestamp is unavailable", () => {
+  assertInvalidPlan(
+    { line_items: [limaLine()] },
     /Order creation timestamp is missing or invalid/i,
   );
 });
