@@ -16,6 +16,9 @@ It receives Shopify `orders/create` webhooks, reads `_inventory_plan` and `_laun
 ## Safety rules
 
 - The service rejects webhooks with an invalid Shopify signature.
+- The paid parent bundle SKU is the source of truth for pouch count and eligible gifts.
+- It rejects stale, unknown, or excess component SKUs instead of trusting cart line-item properties.
+- Strict Tolú gift rules apply at and after `2026-08-10T07:18:43Z`; earlier Tolú orders retain the legacy fulfillment plan. Override the boundary with `TOLU_OFFER_CUTOVER_AT` if the storefront cutover changes.
 - It skips fulfilled orders and orders with no bundle plan.
 - It skips components that Shopify already added, making webhook retries safe.
 - It creates components through an order edit with a full line-item discount, so the customer continues to pay only for the paid bundle line.

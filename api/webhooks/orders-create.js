@@ -1,5 +1,9 @@
 const crypto = require("node:crypto");
-const { componentPlan, existingComponentKeys } = require("../../lib/bundle-plan");
+const {
+  BundlePlanValidationError,
+  componentPlan,
+  existingComponentKeys,
+} = require("../../lib/bundle-plan");
 const { findVariantBySku, beginOrderEdit, addZeroDollarVariant, commitOrderEdit } = require("../../lib/shopify");
 
 function rawBody(request) {
@@ -44,6 +48,13 @@ module.exports = async (request, response) => {
     const editedOrder = await commitOrderEdit(editId);
     return response.status(200).json({ status: "processed", order: editedOrder.name, components: plan.length });
   } catch (error) {
+    if (error instanceof BundlePlanValidationError) {
+      console.error("Bundle fulfillment rejected an invalid plan", error);
+      return response.status(422).json({
+        error: "Invalid bundle plan.",
+        details: error.message,
+      });
+    }
     console.error("Bundle fulfillment webhook failed", error);
     return response.status(500).json({ error: "Bundle fulfillment could not be completed." });
   }
