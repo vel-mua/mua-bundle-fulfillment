@@ -367,6 +367,32 @@ test("recognizes Tasi and Lima renewals from their source without adding gifts",
   ]);
 });
 
+test("every recurring bundle ignores even malformed inherited gifts", () => {
+  const cases = [
+    { sku: "MUA-TASI-BUN-26", createdAt: POST_CUTOVER, inventoryPlan: "1x MUA-HYD-IB-15PK", pouchCount: 1 },
+    { sku: "MUA-TOLU-BUN-26", createdAt: POST_CUTOVER, inventoryPlan: "3x MUA-HYD-TN-15PK", pouchCount: 3 },
+    { sku: "MUA-LIMA-BUN-26", createdAt: POST_CUTOVER, inventoryPlan: "5x MUA-HYD-GS-15PK", pouchCount: 5 },
+    { sku: "MUA-TOLU-BUN-26", createdAt: PRE_CUTOVER, inventoryPlan: "3x MUA-HYD-TN-15PK", pouchCount: 3 },
+  ];
+
+  for (const item of cases) {
+    const line = bundleLine({
+      sku: item.sku,
+      inventoryPlan: item.inventoryPlan,
+      launchExtras: "this is not a valid gift plan",
+    });
+    line.properties.push({ name: "_bundle_gifts_enabled", value: "true" });
+    const plan = componentPlan(order({
+      created_at: item.createdAt,
+      source_name: "subscription_contract_checkout_one",
+      tags: [],
+      line_items: [line],
+    }));
+    assert.equal(plan.reduce((sum, component) => sum + component.quantity, 0), item.pouchCount);
+    assert.ok(plan.every((component) => component.source === "pouch"));
+  }
+});
+
 test("a missing source and tag still rejects the stale preorder gift list", () => {
   assertInvalidPlan(order({
     tags: [],
