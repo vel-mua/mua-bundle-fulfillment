@@ -2,9 +2,11 @@ const crypto = require("node:crypto");
 const {
   BundlePlanValidationError,
   componentPlan,
-  existingComponentKeys,
+  hasBundleCandidate,
+  missingComponents,
 } = require("../../lib/bundle-plan");
-const { findVariantBySku, beginOrderEdit, addZeroDollarVariant, commitOrderEdit } = require("../../lib/shopify");
+const { findVariantBySku, getOrderSnapshot, beginOrderEdit, addZeroDollarVariant, commitOrderEdit } = require("../../lib/shopify");
+const { acquireOrderLock, releaseOrderLock } = require("../../lib/token-store");
 
 function rawBody(request) {
   return new Promise((resolve, reject) => {
@@ -31,22 +33,37 @@ module.exports = async (request, response) => {
   try {
     const body = await rawBody(request);
     if (!isValidWebhook(body, request)) return response.status(401).json({ error: "Invalid webhook signature" });
-    const order = JSON.parse(body.toString("utf8"));
-    if (order.fulfillment_status && order.fulfillment_status !== "unfulfilled") {
-      return response.status(200).json({ status: "skipped", reason: "Order is already fulfilled" });
+    const webhookOrder = JSON.parse(body.toString("utf8"));
+    if (!webhookOrder.id) throw new BundlePlanValidationError("Order ID is missing.");
+    if (!Array.isArray(webhookOrder.line_items)) throw new Error("Order webhook is missing line items.");
+    if (!hasBundleCandidate(webhookOrder)) {
+      return response.status(200).json({ status: "skipped", reason: "No bundle items" });
     }
-
-    const existing = existingComponentKeys(order);
-    const plan = componentPlan(order).filter((component) => !existing.has(`${component.group}:${component.sku}`));
-    if (!plan.length) return response.status(200).json({ status: "skipped", reason: "No new bundle components" });
-
-    const editId = await beginOrderEdit(order.id);
-    for (const component of plan) {
-      const variant = await findVariantBySku(component.sku);
-      await addZeroDollarVariant(editId, variant, component);
+    const lockToken = crypto.randomUUID();
+    if (!await acquireOrderLock(webhookOrder.id, lockToken)) {
+      return response.status(200).json({ status: "skipped", reason: "Order is already being processed" });
     }
-    const editedOrder = await commitOrderEdit(editId);
-    return response.status(200).json({ status: "processed", order: editedOrder.name, components: plan.length });
+    try {
+      const order = await getOrderSnapshot(webhookOrder.id);
+      if (order.fulfillment_status !== "unfulfilled") {
+        return response.status(200).json({ status: "skipped", reason: "Order is already fulfilled" });
+      }
+
+      const plan = missingComponents(componentPlan(order), order);
+      if (!plan.length) return response.status(200).json({ status: "skipped", reason: "No new bundle components" });
+
+      const editId = await beginOrderEdit(order.id);
+      for (const component of plan) {
+        const variant = await findVariantBySku(component.sku);
+        await addZeroDollarVariant(editId, variant, component);
+      }
+      const editedOrder = await commitOrderEdit(editId);
+      return response.status(200).json({ status: "processed", order: editedOrder.name, components: plan.length });
+    } finally {
+      await releaseOrderLock(webhookOrder.id, lockToken).catch((error) => {
+        console.error("Could not release bundle order lock", error);
+      });
+    }
   } catch (error) {
     if (error instanceof BundlePlanValidationError) {
       console.error("Bundle fulfillment rejected an invalid plan", error);

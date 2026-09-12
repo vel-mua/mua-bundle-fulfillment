@@ -5,6 +5,7 @@ const {
   DEFAULT_LIMA_OFFER_CUTOVER_AT,
   DEFAULT_TOLU_OFFER_CUTOVER_AT,
   componentPlan,
+  missingComponents,
 } = require("../lib/bundle-plan");
 
 const POST_CUTOVER = "2026-08-20T16:57:34Z";
@@ -302,4 +303,121 @@ test("recognizes recurring-order tags supplied as an array", () => {
   assert.deepEqual(plan, [
     { sku: "MUA-HYD-IB-15PK", quantity: 1, source: "pouch", group: "bundle-1" },
   ]);
+});
+
+test("recognizes a Tolu renewal from its source when creation-time tags are absent", () => {
+  const plan = componentPlan(order({
+    source_name: "subscription_contract_checkout_one",
+    tags: [],
+    line_items: [bundleLine({
+      launchExtras: "1x MW-STCKRPACK-1, 1x MW-FROTH-1, 1x LW-SSTS-3XL",
+    })],
+  }));
+
+  assert.deepEqual(plan.map(({ sku, quantity }) => ({ sku, quantity })), [
+    { sku: "MUA-HYD-TN-15PK", quantity: 1 },
+    { sku: "MUA-HYD-IB-15PK", quantity: 1 },
+    { sku: "MUA-HYD-GS-15PK", quantity: 1 },
+  ]);
+});
+
+test("recognizes Tasi and Lima renewals from their source without adding gifts", () => {
+  const tasi = componentPlan(order({
+    source_name: "subscription_contract_checkout_one",
+    line_items: [bundleLine({
+      sku: "MUA-TASI-BUN-26",
+      inventoryPlan: "1x MUA-HYD-IB-15PK",
+      launchExtras: "1x MW-STCKRPACK-1",
+    })],
+  }));
+  const lima = componentPlan(order({
+    source_name: "subscription_contract_checkout_one",
+    line_items: [limaLine({ launchExtras: LEGACY_LIMA_EXTRAS })],
+  }));
+
+  assert.deepEqual(tasi.map(({ sku, quantity }) => ({ sku, quantity })), [
+    { sku: "MUA-HYD-IB-15PK", quantity: 1 },
+  ]);
+  assert.deepEqual(lima.map(({ sku, quantity }) => ({ sku, quantity })), [
+    { sku: "MUA-HYD-TN-15PK", quantity: 2 },
+    { sku: "MUA-HYD-IB-15PK", quantity: 1 },
+    { sku: "MUA-HYD-GS-15PK", quantity: 2 },
+  ]);
+});
+
+test("a missing source and tag still rejects the stale preorder gift list", () => {
+  assertInvalidPlan(order({
+    tags: [],
+    line_items: [bundleLine({
+      launchExtras: "1x MW-STCKRPACK-1, 1x MW-FROTH-1, 1x LW-SSTS-3XL",
+    })],
+  }), /invalid launch extras/i);
+});
+
+test("subtracts current zero-dollar SKU quantities on webhook replay", () => {
+  const plan = componentPlan(order({ line_items: [bundleLine()] }));
+  const shopifyOrder = order({ line_items: [
+    { sku: "MUA-TOLU-BUN-26", quantity: 1, discounted_unit_price: "64.99" },
+    { sku: "MUA-HYD-TN-15PK", quantity: 1, discounted_unit_price: "0.0", properties: [] },
+    { sku: "MUA-HYD-IB-15PK", quantity: 1, discounted_unit_price: "0.0", properties: [] },
+    { sku: "MUA-HYD-GS-15PK", quantity: 1, discounted_unit_price: "0.0", properties: [] },
+    { sku: "MW-STCKRPACK-1", quantity: 1, discounted_unit_price: "0.0", properties: [] },
+  ] });
+
+  assert.deepEqual(missingComponents(plan, shopifyOrder), []);
+});
+
+test("adds only the remaining quantity when an edit partly completed", () => {
+  const plan = componentPlan(order({
+    source_name: "subscription_contract_checkout_one",
+    line_items: [bundleLine({ inventoryPlan: "3x MUA-HYD-TN-15PK" })],
+  }));
+  const shopifyOrder = order({ line_items: [
+    { sku: "MUA-HYD-TN-15PK", quantity: 2, discounted_unit_price: "0.0" },
+    { sku: "MUA-HYD-TN-15PK", quantity: 1, discounted_unit_price: "25.99" },
+  ] });
+
+  assert.deepEqual(missingComponents(plan, shopifyOrder), [
+    { sku: "MUA-HYD-TN-15PK", quantity: 1, source: "pouch", group: "bundle-1" },
+  ]);
+});
+
+test("does not add a second bottle already included in an initial subscription cart", () => {
+  const orderWithBottle = order({
+    source_name: "web",
+    tags: ["Subscription First Order"],
+    line_items: [
+      bundleLine({ sellingPlan: true, launchExtras: "1x MW-STCKRPACK-1, 1x MW-BTTL-BLACK" }),
+      { sku: "MW-BTTL-BLACK", quantity: 1, discounted_unit_price: "0.0", properties: [
+        { name: "_bundle_component", value: "true" },
+        { name: "_first_subscription_gift", value: "true" },
+      ] },
+    ],
+  });
+
+  const plan = missingComponents(componentPlan(orderWithBottle), orderWithBottle);
+  assert.deepEqual(plan.map(({ sku }) => sku), [
+    "MUA-HYD-TN-15PK", "MUA-HYD-IB-15PK", "MUA-HYD-GS-15PK", "MW-STCKRPACK-1",
+  ]);
+});
+
+test("recognizes a marked first-subscription bottle if the selling plan is late", () => {
+  const orderWithBottle = order({ line_items: [
+    bundleLine({ launchExtras: "1x MW-STCKRPACK-1, 1x MW-BTTL-BLACK" }),
+    { sku: "MW-BTTL-BLACK", quantity: 1, discounted_unit_price: "0.0", properties: [
+      { name: "_bundle_group", value: "bundle-1" },
+      { name: "_bundle_component", value: "true" },
+      { name: "_first_subscription_gift", value: "true" },
+    ] },
+  ] });
+
+  assert.deepEqual(missingComponents(componentPlan(orderWithBottle), orderWithBottle).map(({ sku }) => sku), [
+    "MUA-HYD-TN-15PK", "MUA-HYD-IB-15PK", "MUA-HYD-GS-15PK", "MW-STCKRPACK-1",
+  ]);
+});
+
+test("still rejects a one-time Tolu order with an unearned bottle gift", () => {
+  assertInvalidPlan(order({ line_items: [bundleLine({
+    launchExtras: "1x MW-STCKRPACK-1, 1x MW-BTTL-BLACK",
+  })] }), /invalid launch extras/i);
 });
