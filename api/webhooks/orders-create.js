@@ -45,6 +45,12 @@ module.exports = async (request, response) => {
     }
     try {
       const order = await getOrderSnapshot(webhookOrder.id);
+      if (!order.source_name && webhookOrder.source_name) {
+        order.source_name = webhookOrder.source_name;
+      }
+      if ((!order.tags || !order.tags.length) && webhookOrder.tags) {
+        order.tags = webhookOrder.tags;
+      }
       if (order.fulfillment_status !== "unfulfilled") {
         return response.status(200).json({ status: "skipped", reason: "Order is already fulfilled" });
       }

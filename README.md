@@ -21,10 +21,12 @@ It receives Shopify `orders/create` webhooks, reads `_inventory_plan` and `_laun
 - Strict Tolú and Lima gift rules apply based on order creation time at and after `2026-08-10T07:18:43Z`; earlier orders retain their legacy preorder fulfillment plans. Override either boundary with `TOLU_OFFER_CUTOVER_AT` or `LIMA_OFFER_CUTOVER_AT` if the storefront cutover changes.
 - Current Lima fulfillment is exactly five allowed pouches plus stickers and frother; its initial subscription order also gets one bottle, while recurring orders get no gifts.
 - Recurring subscription orders are identified by the order source at creation, with the Recharge tag as a fallback. A matching first-subscription bottle line also identifies an initial subscription when its selling plan is not yet visible.
+- If Shopify's fresh order snapshot has not populated its source or tags yet, the service uses those values from the signed webhook. Renewals ignore inherited first-order gift properties.
+- Current bundles with the founding-gifts switch off have no gift component plan. The theme writes `_bundle_gifts_enabled=false`; older bundles without any gift property also fulfill their pouches without gifts.
 - It skips fulfilled orders and orders with no bundle plan.
 - For bundle orders, it rereads the current Shopify order before editing and subtracts existing $0 component SKU quantities. A short Redis lock prevents overlapping webhook deliveries from editing the same order at once.
 - It creates components through an order edit with a full line-item discount, so the customer continues to pay only for the paid bundle line.
 
 ## Before production
 
-Confirm that the component variants can be order-edited, that each SKU is unique in Shopify, and that each current bundle product writes `_inventory_plan`. The theme update must write `_launch_extras` only while the founding-gifts switch is enabled.
+Confirm that the component variants can be order-edited, that each SKU is unique in Shopify, and that each current bundle product writes `_inventory_plan`. The theme update must write `_launch_extras` only while the founding-gifts switch is enabled and must write `_bundle_gifts_enabled` explicitly. A genuinely invalid pouch or promised-gift plan still receives 422 and needs operator attention.

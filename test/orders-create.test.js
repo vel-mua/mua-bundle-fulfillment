@@ -46,11 +46,12 @@ function snapshot(withComponents) {
   };
 }
 
-async function deliverWebhook(secret, lineItems = [{ sku: "MUA-TOLU-BUN-26" }]) {
+async function deliverWebhook(secret, lineItems = [{ sku: "MUA-TOLU-BUN-26" }], fields = {}) {
   const body = Buffer.from(JSON.stringify({
     id: 6434881634356,
     tags: [],
     line_items: lineItems,
+    ...fields,
   }));
   const request = new EventEmitter();
   request.method = "POST";
@@ -167,4 +168,55 @@ test("non-bundle orders do not use the Admin API or the order lock", async (t) =
   const result = await deliverWebhook("test-webhook-secret", [{ sku: "MUA-HYD-TN-15PK" }]);
   assert.equal(result.statusCode, 200);
   assert.deepEqual(result.body, { status: "skipped", reason: "No bundle items" });
+});
+
+test("renewal source from the signed webhook survives a delayed Admin source field", async (t) => {
+  const priorFetch = global.fetch;
+  const keys = ["SHOPIFY_API_SECRET", "SHOPIFY_SHOP_DOMAIN", "UPSTASH_REDIS_REST_URL", "UPSTASH_REDIS_REST_TOKEN"];
+  const priorEnv = Object.fromEntries(keys.map((key) => [key, process.env[key]]));
+  t.after(() => {
+    global.fetch = priorFetch;
+    for (const [key, value] of Object.entries(priorEnv)) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+  });
+  process.env.SHOPIFY_API_SECRET = "test-webhook-secret";
+  process.env.SHOPIFY_SHOP_DOMAIN = "example.myshopify.com";
+  process.env.UPSTASH_REDIS_REST_URL = "https://redis.test";
+  process.env.UPSTASH_REDIS_REST_TOKEN = "test-redis-token";
+
+  let edits = 0;
+  global.fetch = async (url, options) => {
+    if (String(url).startsWith("https://redis.test/")) {
+      return { ok: true, json: async () => ({ result: String(url).includes("/set/") ? "OK" : "test-admin-token" }) };
+    }
+    const { query, variables } = JSON.parse(options.body);
+    let data;
+    if (query.includes("query BundleOrderSnapshot")) {
+      data = { order: { ...snapshot(false), sourceName: null } };
+    } else if (query.includes("query VariantBySku")) {
+      const sku = JSON.parse(variables.query.slice(4));
+      data = { productVariants: { nodes: [{ id: `gid://shopify/ProductVariant/${sku}`, sku, price: "25.99" }] } };
+    } else if (query.includes("mutation BeginEdit")) {
+      edits++;
+      data = { orderEditBegin: { calculatedOrder: { id: "gid://shopify/CalculatedOrder/1" }, userErrors: [] } };
+    } else if (query.includes("mutation AddVariant")) {
+      data = { orderEditAddVariant: { calculatedLineItem: { id: "gid://shopify/CalculatedLineItem/1" }, userErrors: [] } };
+    } else if (query.includes("mutation DiscountComponent")) {
+      data = { orderEditAddLineItemDiscount: { userErrors: [] } };
+    } else if (query.includes("mutation CommitEdit")) {
+      data = { orderEditCommit: { order: { id: "gid://shopify/Order/6434881634356", name: "#1564" }, userErrors: [] } };
+    } else {
+      assert.fail(`Unexpected Shopify operation: ${query}`);
+    }
+    return { ok: true, json: async () => ({ data }) };
+  };
+
+  const result = await deliverWebhook("test-webhook-secret", undefined, {
+    source_name: "subscription_contract_checkout_one",
+  });
+  assert.equal(result.statusCode, 200);
+  assert.equal(result.body.components, 3);
+  assert.equal(edits, 1);
 });

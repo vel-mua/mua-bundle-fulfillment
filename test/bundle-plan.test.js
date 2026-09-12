@@ -64,6 +64,28 @@ test("accepts the current one-time Tolu offer", () => {
   ]);
 });
 
+test("adds pouches without gifts when the founding-gifts switch is off", () => {
+  const line = bundleLine({ launchExtras: "" });
+  line.properties.push({ name: "_bundle_gifts_enabled", value: "false" });
+  const plan = componentPlan(order({ line_items: [line] }));
+  assert.deepEqual(plan.map(({ sku }) => sku), [
+    "MUA-HYD-TN-15PK", "MUA-HYD-IB-15PK", "MUA-HYD-GS-15PK",
+  ]);
+});
+
+test("adds pouches when no gift offer was attached to an older bundle", () => {
+  const plan = componentPlan(order({ line_items: [bundleLine({ launchExtras: "" })] }));
+  assert.deepEqual(plan.map(({ sku }) => sku), [
+    "MUA-HYD-TN-15PK", "MUA-HYD-IB-15PK", "MUA-HYD-GS-15PK",
+  ]);
+});
+
+test("rejects a missing gift plan when the bundle explicitly promised gifts", () => {
+  const line = bundleLine({ launchExtras: "" });
+  line.properties.push({ name: "_bundle_gifts_enabled", value: "true" });
+  assertInvalidPlan(order({ line_items: [line] }), /invalid launch extras/i);
+});
+
 test("accepts the current initial-subscription Tolu offer", () => {
   const plan = componentPlan(order({
     tags: ["Subscription", "Subscription First Order"],
