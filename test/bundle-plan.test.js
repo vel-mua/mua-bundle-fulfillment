@@ -393,6 +393,17 @@ test("every recurring bundle ignores even malformed inherited gifts", () => {
   }
 });
 
+test("a legacy recurring plan cannot add a gift SKU as a pouch", () => {
+  assertInvalidPlan(order({
+    created_at: PRE_CUTOVER,
+    source_name: "subscription_contract_checkout_one",
+    line_items: [bundleLine({
+      inventoryPlan: "2x MUA-HYD-TN-15PK, 1x MW-BTTL-BLACK",
+      launchExtras: "1x MW-STCKRPACK-1",
+    })],
+  }), /disallowed pouch SKU.*MW-BTTL-BLACK/i);
+});
+
 test("a missing source and tag still rejects the stale preorder gift list", () => {
   assertInvalidPlan(order({
     tags: [],
