@@ -22,14 +22,23 @@ function bundleParent() {
   };
 }
 
-function snapshot(withComponents) {
-  const lines = [bundleParent()];
+function snapshot(withComponents, legacyLima = false) {
+  const parent = bundleParent();
+  if (legacyLima) {
+    parent.sku = "MUA-LIMA-BUN-26";
+    parent.customAttributes.find(({ key }) => key === "_inventory_plan").value = JSON.stringify([
+      { variant_id: 47875669393460, quantity: 2, label: "Tropical Nectar" },
+      { variant_id: 47875709206580, quantity: 1, label: "Island Breeze" },
+      { variant_id: 47875709272116, quantity: 2, label: "Golden Sunrise" },
+    ]);
+  }
+  const lines = [parent];
   if (withComponents) {
     for (const [index, sku] of pouchSkus.entries()) {
       lines.push({
         id: `gid://shopify/LineItem/${index + 2}`,
         sku,
-        currentQuantity: 1,
+        currentQuantity: legacyLima ? [2, 1, 2][index] : 1,
         customAttributes: [],
         sellingPlan: null,
         discountedUnitPriceSet: { shopMoney: { amount: "0.0" } },
@@ -70,7 +79,8 @@ async function deliverWebhook(secret, lineItems = [{ sku: "MUA-TOLU-BUN-26" }], 
   return response;
 }
 
-test("a tagless Tolu renewal adds only three free pouches and a replay adds none", async (t) => {
+for (const legacyLima of [false, true]) {
+test(`a tagless ${legacyLima ? "legacy variant-only Lima" : "Tolu"} renewal adds only free pouches and a replay adds none`, async (t) => {
   const previousFetch = global.fetch;
   const previousEnv = Object.fromEntries([
     "SHOPIFY_API_SECRET", "SHOPIFY_SHOP_DOMAIN", "UPSTASH_REDIS_REST_URL", "UPSTASH_REDIS_REST_TOKEN",
@@ -93,6 +103,7 @@ test("a tagless Tolu renewal adds only three free pouches and a replay adds none
   let lockBusy = false;
   const lookedUpSkus = [];
   const discounts = [];
+  const addedQuantities = [];
   let mutationCount = 0;
   global.fetch = async (url, options) => {
     if (String(url).startsWith("https://redis.test/")) {
@@ -108,7 +119,7 @@ test("a tagless Tolu renewal adds only three free pouches and a replay adds none
     const { query, variables } = JSON.parse(options.body);
     let data;
     if (query.includes("query BundleOrderSnapshot")) {
-      data = { order: snapshot(replay) };
+      data = { order: snapshot(replay, legacyLima) };
     } else if (query.includes("query VariantBySku")) {
       const sku = JSON.parse(variables.query.slice(4));
       lookedUpSkus.push(sku);
@@ -118,6 +129,7 @@ test("a tagless Tolu renewal adds only three free pouches and a replay adds none
       data = { orderEditBegin: { calculatedOrder: { id: "gid://shopify/CalculatedOrder/1" }, userErrors: [] } };
     } else if (query.includes("mutation AddVariant")) {
       mutationCount++;
+      addedQuantities.push(variables.quantity);
       data = { orderEditAddVariant: { calculatedLineItem: { id: `gid://shopify/CalculatedLineItem/${mutationCount}` }, userErrors: [] } };
     } else if (query.includes("mutation DiscountComponent")) {
       mutationCount++;
@@ -136,8 +148,10 @@ test("a tagless Tolu renewal adds only three free pouches and a replay adds none
   assert.equal(first.statusCode, 200);
   assert.deepEqual(first.body, { status: "processed", order: "#1564", components: 3 });
   assert.deepEqual(lookedUpSkus, pouchSkus);
+  assert.deepEqual(addedQuantities, legacyLima ? [2, 1, 2] : [1, 1, 1]);
   assert.equal(discounts.length, 3);
-  assert.ok(discounts.every((discount) => discount.fixedValue.amount === "25.99"));
+  assert.deepEqual(discounts.map((discount) => discount.fixedValue.amount),
+    legacyLima ? ["51.98", "25.99", "51.98"] : ["25.99", "25.99", "25.99"]);
   assert.ok(discounts.every((discount) => discount.description === "Mua bundle pouch component"));
 
   replay = true;
@@ -153,6 +167,7 @@ test("a tagless Tolu renewal adds only three free pouches and a replay adds none
   assert.deepEqual(overlapping.body, { status: "skipped", reason: "Order is already being processed" });
   assert.equal(mutationCount, beforeReplay);
 });
+}
 
 test("non-bundle orders do not use the Admin API or the order lock", async (t) => {
   const priorSecret = process.env.SHOPIFY_API_SECRET;

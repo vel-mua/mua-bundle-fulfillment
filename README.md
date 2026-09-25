@@ -18,6 +18,7 @@ It receives Shopify `orders/create` webhooks, reads `_inventory_plan` and `_laun
 - The service rejects webhooks with an invalid Shopify signature.
 - The paid parent bundle SKU is the source of truth for pouch count and eligible gifts.
 - It rejects stale, unknown, or excess component SKUs instead of trusting cart line-item properties.
+- Older preorder subscriptions that saved only pouch variant IDs are supported through an explicit mapping of the three verified original flavor variants. Unknown IDs and mismatched SKU/variant pairs are rejected; flavor labels are never used to guess a SKU.
 - Strict Tolú and Lima gift rules apply based on order creation time at and after `2026-08-10T07:18:43Z`; earlier orders retain their legacy preorder fulfillment plans. Override either boundary with `TOLU_OFFER_CUTOVER_AT` or `LIMA_OFFER_CUTOVER_AT` if the storefront cutover changes.
 - Current Lima fulfillment is exactly five allowed pouches plus stickers and frother; its initial subscription order also gets one bottle, while recurring orders get no gifts.
 - Recurring subscription orders are identified by the order source at creation, with the Recharge tag as a fallback. A matching first-subscription bottle line also identifies an initial subscription when its selling plan is not yet visible.

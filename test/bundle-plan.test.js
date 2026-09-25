@@ -12,6 +12,11 @@ const POST_CUTOVER = "2026-08-20T16:57:34Z";
 const PRE_CUTOVER = "2026-08-10T06:24:22Z";
 const CURRENT_LIMA_EXTRAS = "1x MW-STCKRPACK-1, 1x MW-FROTH-1";
 const LEGACY_LIMA_EXTRAS = "1x MW-FROTH-1, 1x MW-STCKRPACK-1, 1x MW-TOTBG-1, 1x MW-BTTL-BLACK, 1x LW-SSTS-3XL";
+const LEGACY_LIMA_POUCHES = [
+  { variant_id: 47875669393460, quantity: 2, label: "Tropical Nectar" },
+  { variant_id: 47875709206580, quantity: 1, label: "Island Breeze" },
+  { variant_id: 47875709272116, quantity: 2, label: "Golden Sunrise" },
+];
 
 function order(values = {}) {
   return { created_at: POST_CUTOVER, ...values };
@@ -310,6 +315,51 @@ test("skips inherited gifts on Recharge recurring orders but validates pouches",
   assert.deepEqual(plan, [
     { sku: "MUA-HYD-TN-15PK", quantity: 3, source: "pouch", group: "bundle-1" },
   ]);
+});
+
+test("MUA1643's legacy variant-only selection produces five pouches and no gifts", () => {
+  for (const asString of [false, true]) {
+    const inventoryPlan = JSON.stringify(LEGACY_LIMA_POUCHES.map((item) => ({
+      ...item, variant_id: asString ? String(item.variant_id) : item.variant_id,
+    })));
+    const plan = componentPlan(order({
+      source_name: "subscription_contract_checkout_one",
+      tags: [],
+      line_items: [limaLine({ inventoryPlan, launchExtras: LEGACY_LIMA_EXTRAS })],
+    }));
+    assert.deepEqual(plan, [
+      { sku: "MUA-HYD-TN-15PK", quantity: 2, source: "pouch", group: "bundle-1" },
+      { sku: "MUA-HYD-IB-15PK", quantity: 1, source: "pouch", group: "bundle-1" },
+      { sku: "MUA-HYD-GS-15PK", quantity: 2, source: "pouch", group: "bundle-1" },
+    ]);
+  }
+});
+
+test("variant-only plans cannot use unknown or gift IDs, even with a valid flavor label", () => {
+  for (const variant_id of [12345, 47999051104308, "__proto__", "constructor"]) {
+    assertInvalidPlan(order({
+      tags: ["Subscription Recurring Order"],
+      line_items: [limaLine({ inventoryPlan: JSON.stringify([
+        { variant_id, quantity: 5, label: "Golden Sunrise" },
+      ]) })],
+    }), /Invalid pouch component/i);
+  }
+});
+
+test("legacy variant IDs cannot override conflicting SKUs or pouch quantity limits", () => {
+  const renewal = (items) => order({
+    tags: ["Subscription Recurring Order"],
+    line_items: [limaLine({ inventoryPlan: JSON.stringify(items) })],
+  });
+  assertInvalidPlan(renewal([
+    { variant_id: 47875669393460, sku: "MW-BTTL-BLACK", quantity: 5 },
+  ]), /SKU does not match/i);
+  assertInvalidPlan(renewal([
+    { variant_id: 47875669393460, quantity: 6 },
+  ]), /requires exactly 5 pouch\(es\); received 6/i);
+  assertInvalidPlan(renewal([
+    { variant_id: 47875669393460, quantity: -5 },
+  ]), /Invalid pouch component/i);
 });
 
 test("recognizes recurring-order tags supplied as an array", () => {
