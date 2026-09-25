@@ -1,0 +1,2134 @@
+[
+  {
+    "caseId": "subscription-01",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-HYD-GS-15PK",
+        "quantity": 1,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "subscription-02",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-LIMA-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Lima"
+          },
+          {
+            "name": "Packaging",
+            "value": "Lima pack — stickers + Mua bottle + Live Well Shirt + Wellness Hat"
+          },
+          {
+            "name": "Flavors",
+            "value": "1× Tropical Nectar, 2× Island Breeze, 2× Golden Sunrise"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "[{\"variant_id\":47875669393460,\"quantity\":1,\"label\":\"Tropical Nectar\"},{\"variant_id\":47875709206580,\"quantity\":2,\"label\":\"Island Breeze\"},{\"variant_id\":47875709272116,\"quantity\":2,\"label\":\"Golden Sunrise\"}]"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "[{\"variant_id\":47997992206388,\"sku\":\"MW-FROTH-1\",\"quantity\":1,\"label\":\"Frother\"},{\"variant_id\":47997993025588,\"sku\":\"MW-STCKRPACK-1\",\"quantity\":1,\"label\":\"Stickers\"},{\"variant_id\":47997992992820,\"sku\":\"MW-TOTBG-1\",\"quantity\":1,\"label\":\"Tote Bag\"},{\"variant_id\":47999051104308,\"sku\":\"MW-BTTL-BLACK\",\"quantity\":1,\"label\":\"MW Bottle\"},{\"variant_id\":47998891196468,\"sku\":\"LW-SSTS-S\",\"quantity\":1,\"label\":\"Short Sleeve T-Shirt (S)\"}]"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Frother, Stickers, Tote Bag, MW Bottle, Short Sleeve T-Shirt (S)"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Golden Sunrise"
+          },
+          {
+            "name": "Pouch 4",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 5",
+            "value": "Golden Sunrise"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-TN-15PK": 1,
+      "MUA-HYD-IB-15PK": 2,
+      "MUA-HYD-GS-15PK": 2
+    }
+  },
+  {
+    "caseId": "subscription-03",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-LIMA-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Lima"
+          },
+          {
+            "name": "Packaging",
+            "value": "Lima pack — stickers + Mua bottle + Live Well Shirt + Wellness Hat"
+          },
+          {
+            "name": "Flavors",
+            "value": "2× Island Breeze, 2× Tropical Nectar, 1× Golden Sunrise"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "[{\"variant_id\":47875709206580,\"quantity\":2,\"label\":\"Island Breeze\"},{\"variant_id\":47875669393460,\"quantity\":2,\"label\":\"Tropical Nectar\"},{\"variant_id\":47875709272116,\"quantity\":1,\"label\":\"Golden Sunrise\"}]"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "[{\"variant_id\":47997992206388,\"sku\":\"MW-FROTH-1\",\"quantity\":1,\"label\":\"Frother\"},{\"variant_id\":47997993025588,\"sku\":\"MW-STCKRPACK-1\",\"quantity\":1,\"label\":\"Stickers\"},{\"variant_id\":47997992992820,\"sku\":\"MW-TOTBG-1\",\"quantity\":1,\"label\":\"Tote Bag\"},{\"variant_id\":47999051104308,\"sku\":\"MW-BTTL-BLACK\",\"quantity\":1,\"label\":\"MW Bottle\"},{\"variant_id\":47998891360308,\"sku\":\"LW-SSTS-3XL\",\"quantity\":1,\"label\":\"Short Sleeve T-Shirt (3XL)\"}]"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Frother, Stickers, Tote Bag, MW Bottle, Short Sleeve T-Shirt (3XL)"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 4",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 5",
+            "value": "Golden Sunrise"
+          }
+        ]
+      },
+      {
+        "sku": "MUA-LIMA-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-2"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Lima"
+          },
+          {
+            "name": "Packaging",
+            "value": "Lima pack — stickers + Mua bottle + Live Well Shirt + Wellness Hat"
+          },
+          {
+            "name": "Flavors",
+            "value": "2× Tropical Nectar, 2× Golden Sunrise, 1× Island Breeze"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "[{\"variant_id\":47875669393460,\"quantity\":2,\"label\":\"Tropical Nectar\"},{\"variant_id\":47875709272116,\"quantity\":2,\"label\":\"Golden Sunrise\"},{\"variant_id\":47875709206580,\"quantity\":1,\"label\":\"Island Breeze\"}]"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "[{\"variant_id\":47997992206388,\"sku\":\"MW-FROTH-1\",\"quantity\":1,\"label\":\"Frother\"},{\"variant_id\":47997993025588,\"sku\":\"MW-STCKRPACK-1\",\"quantity\":1,\"label\":\"Stickers\"},{\"variant_id\":47997992992820,\"sku\":\"MW-TOTBG-1\",\"quantity\":1,\"label\":\"Tote Bag\"},{\"variant_id\":47999051104308,\"sku\":\"MW-BTTL-BLACK\",\"quantity\":1,\"label\":\"MW Bottle\"},{\"variant_id\":47998891360308,\"sku\":\"LW-SSTS-3XL\",\"quantity\":1,\"label\":\"Short Sleeve T-Shirt (3XL)\"}]"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Frother, Stickers, Tote Bag, MW Bottle, Short Sleeve T-Shirt (3XL)"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Golden Sunrise"
+          },
+          {
+            "name": "Pouch 4",
+            "value": "Golden Sunrise"
+          },
+          {
+            "name": "Pouch 5",
+            "value": "Island Breeze"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-IB-15PK": 3,
+      "MUA-HYD-TN-15PK": 4,
+      "MUA-HYD-GS-15PK": 3
+    }
+  },
+  {
+    "caseId": "subscription-04",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-LIMA-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Lima"
+          },
+          {
+            "name": "Packaging",
+            "value": "Lima pack — stickers + Mua bottle + Live Well Shirt + Wellness Hat"
+          },
+          {
+            "name": "Flavors",
+            "value": "2× Tropical Nectar, 1× Island Breeze, 2× Golden Sunrise"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "[{\"variant_id\":47875669393460,\"quantity\":2,\"label\":\"Tropical Nectar\"},{\"variant_id\":47875709206580,\"quantity\":1,\"label\":\"Island Breeze\"},{\"variant_id\":47875709272116,\"quantity\":2,\"label\":\"Golden Sunrise\"}]"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "[{\"variant_id\":47997992206388,\"sku\":\"MW-FROTH-1\",\"quantity\":1,\"label\":\"Frother\"},{\"variant_id\":47997993025588,\"sku\":\"MW-STCKRPACK-1\",\"quantity\":1,\"label\":\"Stickers\"},{\"variant_id\":47997992992820,\"sku\":\"MW-TOTBG-1\",\"quantity\":1,\"label\":\"Tote Bag\"},{\"variant_id\":47999051104308,\"sku\":\"MW-BTTL-BLACK\",\"quantity\":1,\"label\":\"MW Bottle\"},{\"variant_id\":47998891262004,\"sku\":\"LW-SSTS-L\",\"quantity\":1,\"label\":\"Short Sleeve T-Shirt (L)\"}]"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Frother, Stickers, Tote Bag, MW Bottle, Short Sleeve T-Shirt (L)"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Golden Sunrise"
+          },
+          {
+            "name": "Pouch 4",
+            "value": "Golden Sunrise"
+          },
+          {
+            "name": "Pouch 5",
+            "value": "Tropical Nectar"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-TN-15PK": 2,
+      "MUA-HYD-IB-15PK": 1,
+      "MUA-HYD-GS-15PK": 2
+    }
+  },
+  {
+    "caseId": "subscription-05",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-TOLU-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Tolu"
+          },
+          {
+            "name": "Packaging",
+            "value": "Tolu pack — stickers + Mua bottle"
+          },
+          {
+            "name": "Flavors",
+            "value": "2× Tropical Nectar, 1× Island Breeze"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "[{\"variant_id\":47875669393460,\"quantity\":2,\"label\":\"Tropical Nectar\"},{\"variant_id\":47875709206580,\"quantity\":1,\"label\":\"Island Breeze\"}]"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "[{\"variant_id\":47997993025588,\"sku\":\"MW-STCKRPACK-1\",\"quantity\":1,\"label\":\"Stickers\"},{\"variant_id\":47997992206388,\"sku\":\"MW-FROTH-1\",\"quantity\":1,\"label\":\"Frother\"},{\"variant_id\":47998891327540,\"sku\":\"LW-SSTS-2XL\",\"quantity\":1,\"label\":\"Short Sleeve T-Shirt (2XL)\"}]"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Stickers, Frother, Short Sleeve T-Shirt (2XL)"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Island Breeze"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-TN-15PK": 2,
+      "MUA-HYD-IB-15PK": 1
+    }
+  },
+  {
+    "caseId": "subscription-06",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-LIMA-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Lima"
+          },
+          {
+            "name": "Packaging",
+            "value": "Lima pack — stickers + Mua bottle + Live Well Shirt + Wellness Hat"
+          },
+          {
+            "name": "Flavors",
+            "value": "1× Tropical Nectar, 2× Island Breeze, 2× Golden Sunrise"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "[{\"variant_id\":47875669393460,\"quantity\":1,\"label\":\"Tropical Nectar\"},{\"variant_id\":47875709206580,\"quantity\":2,\"label\":\"Island Breeze\"},{\"variant_id\":47875709272116,\"quantity\":2,\"label\":\"Golden Sunrise\"}]"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "[{\"variant_id\":47997992206388,\"sku\":\"MW-FROTH-1\",\"quantity\":1,\"label\":\"Frother\"},{\"variant_id\":47997993025588,\"sku\":\"MW-STCKRPACK-1\",\"quantity\":1,\"label\":\"Stickers\"},{\"variant_id\":47997992992820,\"sku\":\"MW-TOTBG-1\",\"quantity\":1,\"label\":\"Tote Bag\"},{\"variant_id\":47999051104308,\"sku\":\"MW-BTTL-BLACK\",\"quantity\":1,\"label\":\"MW Bottle\"},{\"variant_id\":47998891327540,\"sku\":\"LW-SSTS-2XL\",\"quantity\":1,\"label\":\"Short Sleeve T-Shirt (2XL)\"}]"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Frother, Stickers, Tote Bag, MW Bottle, Short Sleeve T-Shirt (2XL)"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Golden Sunrise"
+          },
+          {
+            "name": "Pouch 4",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 5",
+            "value": "Golden Sunrise"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-TN-15PK": 1,
+      "MUA-HYD-IB-15PK": 2,
+      "MUA-HYD-GS-15PK": 2
+    }
+  },
+  {
+    "caseId": "subscription-07",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-TOLU-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Tolu"
+          },
+          {
+            "name": "Packaging",
+            "value": "Tolu pack — stickers + Mua bottle"
+          },
+          {
+            "name": "Flavors",
+            "value": "1× Tropical Nectar, 1× Island Breeze, 1× Golden Sunrise"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "[{\"variant_id\":47875669393460,\"quantity\":1,\"label\":\"Tropical Nectar\"},{\"variant_id\":47875709206580,\"quantity\":1,\"label\":\"Island Breeze\"},{\"variant_id\":47875709272116,\"quantity\":1,\"label\":\"Golden Sunrise\"}]"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "[{\"variant_id\":47997993025588,\"sku\":\"MW-STCKRPACK-1\",\"quantity\":1,\"label\":\"Stickers\"},{\"variant_id\":47997992206388,\"sku\":\"MW-FROTH-1\",\"quantity\":1,\"label\":\"Frother\"},{\"variant_id\":47998891327540,\"sku\":\"LW-SSTS-2XL\",\"quantity\":1,\"label\":\"Short Sleeve T-Shirt (2XL)\"}]"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Stickers, Frother, Short Sleeve T-Shirt (2XL)"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Golden Sunrise"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-TN-15PK": 1,
+      "MUA-HYD-IB-15PK": 1,
+      "MUA-HYD-GS-15PK": 1
+    }
+  },
+  {
+    "caseId": "subscription-08",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-TOLU-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Tolu"
+          },
+          {
+            "name": "Flavors",
+            "value": "1× Tropical Nectar, 1× Island Breeze, 1× Golden Sunrise"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "1× MUA-HYD-TN-15PK (Tropical Nectar), 1× MUA-HYD-IB-15PK (Island Breeze), 1× MUA-HYD-GS-15PK (Golden Sunrise)"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "1× MW-STCKRPACK-1 (Stickers), 1× MW-FROTH-1 (Frother), 1× LW-SSTS-2XL (Short Sleeve T-Shirt (2XL))"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Stickers, Frother, Short Sleeve T-Shirt (2XL)"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Golden Sunrise"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-TN-15PK": 1,
+      "MUA-HYD-IB-15PK": 1,
+      "MUA-HYD-GS-15PK": 1
+    }
+  },
+  {
+    "caseId": "subscription-09",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-HYD-GS-15PK",
+        "quantity": 1,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "subscription-10",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-HYD-TN-15PK",
+        "quantity": 1,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "subscription-11",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-TOLU-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Tolu"
+          },
+          {
+            "name": "Flavors",
+            "value": "1× Tropical Nectar, 1× Island Breeze, 1× Golden Sunrise"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "1× MUA-HYD-TN-15PK (Tropical Nectar), 1× MUA-HYD-IB-15PK (Island Breeze), 1× MUA-HYD-GS-15PK (Golden Sunrise)"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "1× MW-STCKRPACK-1 (Stickers), 1× MW-FROTH-1 (Frother), 1× LW-SSTS-M (Short Sleeve T-Shirt (M))"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Stickers, Frother, Short Sleeve T-Shirt (M)"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Golden Sunrise"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-TN-15PK": 1,
+      "MUA-HYD-IB-15PK": 1,
+      "MUA-HYD-GS-15PK": 1
+    }
+  },
+  {
+    "caseId": "subscription-12",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-HYD-TN-15PK",
+        "quantity": 1,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "subscription-13",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-TOLU-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Tolu"
+          },
+          {
+            "name": "Flavors",
+            "value": "1× Island Breeze, 1× Tropical Nectar, 1× Golden Sunrise"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "1× MUA-HYD-IB-15PK (Island Breeze), 1× MUA-HYD-TN-15PK (Tropical Nectar), 1× MUA-HYD-GS-15PK (Golden Sunrise)"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "1× MW-STCKRPACK-1 (Stickers), 1× MW-FROTH-1 (Frother), 1× LW-SSTS-M (Short Sleeve T-Shirt (M))"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Stickers, Frother, Short Sleeve T-Shirt (M)"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Golden Sunrise"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-IB-15PK": 1,
+      "MUA-HYD-TN-15PK": 1,
+      "MUA-HYD-GS-15PK": 1
+    }
+  },
+  {
+    "caseId": "subscription-14",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-LIMA-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Lima"
+          },
+          {
+            "name": "Flavors",
+            "value": "2× Tropical Nectar, 1× Island Breeze, 2× Golden Sunrise"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "2× MUA-HYD-TN-15PK (Tropical Nectar), 1× MUA-HYD-IB-15PK (Island Breeze), 2× MUA-HYD-GS-15PK (Golden Sunrise)"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "1× MW-FROTH-1 (Frother), 1× MW-STCKRPACK-1 (Stickers), 1× MW-TOTBG-1 (Tote Bag), 1× MW-BTTL-BLACK (MW Bottle), 1× LW-SSTS-3XL (Short Sleeve T-Shirt (3XL))"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Frother, Stickers, Tote Bag, MW Bottle, Short Sleeve T-Shirt (3XL)"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 4",
+            "value": "Golden Sunrise"
+          },
+          {
+            "name": "Pouch 5",
+            "value": "Golden Sunrise"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-TN-15PK": 2,
+      "MUA-HYD-IB-15PK": 1,
+      "MUA-HYD-GS-15PK": 2
+    }
+  },
+  {
+    "caseId": "subscription-15",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-HYD-TN-15PK",
+        "quantity": 1,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "subscription-16",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-HYD-TN-15PK",
+        "quantity": 1,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "subscription-17",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-HYD-TN-15PK",
+        "quantity": 1,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "subscription-18",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-HYD-GS-15PK",
+        "quantity": 1,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "subscription-19",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-HYD-IB-15PK",
+        "quantity": 1,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "subscription-20",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-HYD-IB-15PK",
+        "quantity": 1,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "subscription-21",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-HYD-GS-15PK",
+        "quantity": 2,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "subscription-22",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-HYD-IB-15PK",
+        "quantity": 1,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "subscription-23",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-HYD-IB-15PK",
+        "quantity": 1,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "subscription-24",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-HYD-GS-15PK",
+        "quantity": 1,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "subscription-25",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-TOLU-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Tolu"
+          },
+          {
+            "name": "Flavors",
+            "value": "1× Tropical Nectar, 1× Island Breeze, 1× Golden Sunrise"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "1× MUA-HYD-TN-15PK (Tropical Nectar), 1× MUA-HYD-IB-15PK (Island Breeze), 1× MUA-HYD-GS-15PK (Golden Sunrise)"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "1× MW-STCKRPACK-1 (Stickers), 1× MW-FROTH-1 (Frother), 1× LW-SSTS-3XL (Short Sleeve T-Shirt (3XL))"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Stickers, Frother, Short Sleeve T-Shirt (3XL)"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Golden Sunrise"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-TN-15PK": 1,
+      "MUA-HYD-IB-15PK": 1,
+      "MUA-HYD-GS-15PK": 1
+    }
+  },
+  {
+    "caseId": "subscription-26",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-HYD-GS-15PK",
+        "quantity": 1,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "subscription-27",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-HYD-GS-15PK",
+        "quantity": 1,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "subscription-28",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-LIMA-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Lima"
+          },
+          {
+            "name": "Flavors",
+            "value": "1× Tropical Nectar, 2× Island Breeze, 2× Golden Sunrise"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "1× MUA-HYD-TN-15PK (Tropical Nectar), 2× MUA-HYD-IB-15PK (Island Breeze), 2× MUA-HYD-GS-15PK (Golden Sunrise)"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "1× MW-FROTH-1 (Frother), 1× MW-STCKRPACK-1 (Stickers), 1× MW-TOTBG-1 (Tote Bag), 1× MW-BTTL-BLACK (MW Bottle), 1× LW-SSTS-L (Short Sleeve T-Shirt (L))"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Frother, Stickers, Tote Bag, MW Bottle, Short Sleeve T-Shirt (L)"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Golden Sunrise"
+          },
+          {
+            "name": "Pouch 4",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 5",
+            "value": "Golden Sunrise"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-TN-15PK": 1,
+      "MUA-HYD-IB-15PK": 2,
+      "MUA-HYD-GS-15PK": 2
+    }
+  },
+  {
+    "caseId": "subscription-29",
+    "cohort": "preorder",
+    "lines": [
+      {
+        "sku": "MUA-TOLU-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Tolu"
+          },
+          {
+            "name": "Flavors",
+            "value": "1× Tropical Nectar, 1× Island Breeze, 1× Golden Sunrise"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "1× MUA-HYD-TN-15PK (Tropical Nectar), 1× MUA-HYD-IB-15PK (Island Breeze), 1× MUA-HYD-GS-15PK (Golden Sunrise)"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "1× MW-STCKRPACK-1 (Stickers), 1× MW-FROTH-1 (Frother), 1× LW-SSTS-3XL (Short Sleeve T-Shirt (3XL))"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Stickers, Frother, Short Sleeve T-Shirt (3XL)"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Golden Sunrise"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-TN-15PK": 1,
+      "MUA-HYD-IB-15PK": 1,
+      "MUA-HYD-GS-15PK": 1
+    }
+  },
+  {
+    "caseId": "subscription-30",
+    "cohort": "later-initial",
+    "lines": [
+      {
+        "sku": "MUA-TOLU-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Tolu"
+          },
+          {
+            "name": "Flavors",
+            "value": "1× Island Breeze, 1× Golden Sunrise, 1× Tropical Nectar"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "1× MUA-HYD-IB-15PK (Island Breeze), 1× MUA-HYD-GS-15PK (Golden Sunrise), 1× MUA-HYD-TN-15PK (Tropical Nectar)"
+          },
+          {
+            "name": "_subscription_gift_plan",
+            "value": "[{\"variantId\":47999051104308,\"quantity\":1}]"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "1× MW-STCKRPACK-1 (Stickers), 1× MW-BTTL-BLACK (MW Bottle)"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Stickers, MW Bottle"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Golden Sunrise"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Tropical Nectar"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-IB-15PK": 1,
+      "MUA-HYD-GS-15PK": 1,
+      "MUA-HYD-TN-15PK": 1
+    }
+  },
+  {
+    "caseId": "subscription-31",
+    "cohort": "later-initial",
+    "lines": [
+      {
+        "sku": "MUA-TOLU-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Tolu"
+          },
+          {
+            "name": "Flavors",
+            "value": "2× Golden Sunrise, 1× Tropical Nectar"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "2× MUA-HYD-GS-15PK (Golden Sunrise), 1× MUA-HYD-TN-15PK (Tropical Nectar)"
+          },
+          {
+            "name": "_subscription_gift_plan",
+            "value": "[{\"variantId\":47999051104308,\"quantity\":1}]"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "1× MW-STCKRPACK-1 (Stickers), 1× MW-BTTL-BLACK (MW Bottle)"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Stickers, MW Bottle"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Golden Sunrise"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Golden Sunrise"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-GS-15PK": 2,
+      "MUA-HYD-TN-15PK": 1
+    }
+  },
+  {
+    "caseId": "subscription-32",
+    "cohort": "renewal",
+    "lines": [
+      {
+        "sku": "MUA-TOLU-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Tolu"
+          },
+          {
+            "name": "Flavors",
+            "value": "1× Tropical Nectar, 1× Island Breeze, 1× Golden Sunrise"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "1× MUA-HYD-TN-15PK (Tropical Nectar), 1× MUA-HYD-IB-15PK (Island Breeze), 1× MUA-HYD-GS-15PK (Golden Sunrise)"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "1× MW-STCKRPACK-1 (Stickers), 1× MW-FROTH-1 (Frother), 1× LW-SSTS-3XL (Short Sleeve T-Shirt (3XL))"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Stickers, Frother, Short Sleeve T-Shirt (3XL)"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Golden Sunrise"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-TN-15PK": 1,
+      "MUA-HYD-IB-15PK": 1,
+      "MUA-HYD-GS-15PK": 1
+    }
+  },
+  {
+    "caseId": "subscription-33",
+    "cohort": "later-initial",
+    "lines": [
+      {
+        "sku": "MUA-HYD-GS-15PK",
+        "quantity": 1,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "subscription-34",
+    "cohort": "later-initial",
+    "lines": [
+      {
+        "sku": "MUA-HYD-TN-15PK",
+        "quantity": 1,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "subscription-35",
+    "cohort": "renewal",
+    "lines": [
+      {
+        "sku": "MUA-TOLU-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Tolu"
+          },
+          {
+            "name": "Flavors",
+            "value": "1× Tropical Nectar, 1× Island Breeze, 1× Golden Sunrise"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "1× MUA-HYD-TN-15PK (Tropical Nectar), 1× MUA-HYD-IB-15PK (Island Breeze), 1× MUA-HYD-GS-15PK (Golden Sunrise)"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "1× MW-STCKRPACK-1 (Stickers), 1× MW-FROTH-1 (Frother), 1× LW-SSTS-3XL (Short Sleeve T-Shirt (3XL))"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Stickers, Frother, Short Sleeve T-Shirt (3XL)"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Golden Sunrise"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-TN-15PK": 1,
+      "MUA-HYD-IB-15PK": 1,
+      "MUA-HYD-GS-15PK": 1
+    }
+  },
+  {
+    "caseId": "subscription-36",
+    "cohort": "later-initial",
+    "lines": [
+      {
+        "sku": "MUA-TOLU-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Tolu"
+          },
+          {
+            "name": "Flavors",
+            "value": "1× Tropical Nectar, 1× Island Breeze, 1× Golden Sunrise"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "1× MUA-HYD-TN-15PK (Tropical Nectar), 1× MUA-HYD-IB-15PK (Island Breeze), 1× MUA-HYD-GS-15PK (Golden Sunrise)"
+          },
+          {
+            "name": "_subscription_gift_plan",
+            "value": "[{\"variantId\":47999051104308,\"quantity\":1}]"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "1× MW-STCKRPACK-1 (Stickers), 1× MW-BTTL-BLACK (MW Bottle)"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Stickers, MW Bottle"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Golden Sunrise"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-TN-15PK": 1,
+      "MUA-HYD-IB-15PK": 1,
+      "MUA-HYD-GS-15PK": 1
+    }
+  },
+  {
+    "caseId": "subscription-37",
+    "cohort": "later-initial",
+    "lines": [
+      {
+        "sku": "MUA-TASI-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "_bundle_gifts_enabled",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Tasi"
+          },
+          {
+            "name": "Flavors",
+            "value": "1× Island Breeze"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "1× MUA-HYD-IB-15PK (Island Breeze)"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "1× MW-STCKRPACK-1 (Stickers)"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Stickers"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Island Breeze"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-IB-15PK": 1
+    }
+  },
+  {
+    "caseId": "subscription-38",
+    "cohort": "later-initial",
+    "lines": [
+      {
+        "sku": "MUA-LIMA-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "_bundle_gifts_enabled",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Lima"
+          },
+          {
+            "name": "Flavors",
+            "value": "2× Golden Sunrise, 1× Island Breeze, 2× Tropical Nectar"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "2× MUA-HYD-GS-15PK (Golden Sunrise), 1× MUA-HYD-IB-15PK (Island Breeze), 2× MUA-HYD-TN-15PK (Tropical Nectar)"
+          },
+          {
+            "name": "_subscription_gift_plan",
+            "value": "[{\"variantId\":47999051104308,\"quantity\":1}]"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "1× MW-STCKRPACK-1 (Stickers), 1× MW-FROTH-1 (Frother), 1× MW-BTTL-BLACK (MW Bottle)"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Stickers, Frother, MW Bottle"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Golden Sunrise"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Golden Sunrise"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 4",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 5",
+            "value": "Tropical Nectar"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-GS-15PK": 2,
+      "MUA-HYD-IB-15PK": 1,
+      "MUA-HYD-TN-15PK": 2
+    }
+  },
+  {
+    "caseId": "subscription-39",
+    "cohort": "later-initial",
+    "lines": [
+      {
+        "sku": "MUA-TOLU-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "_bundle_gifts_enabled",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Tolu"
+          },
+          {
+            "name": "Flavors",
+            "value": "1× Tropical Nectar, 1× Island Breeze, 1× Golden Sunrise"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "1× MUA-HYD-TN-15PK (Tropical Nectar), 1× MUA-HYD-IB-15PK (Island Breeze), 1× MUA-HYD-GS-15PK (Golden Sunrise)"
+          },
+          {
+            "name": "_subscription_gift_plan",
+            "value": "[{\"variantId\":47999051104308,\"quantity\":1}]"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "1× MW-STCKRPACK-1 (Stickers), 1× MW-BTTL-BLACK (MW Bottle)"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Stickers, MW Bottle"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Golden Sunrise"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-TN-15PK": 1,
+      "MUA-HYD-IB-15PK": 1,
+      "MUA-HYD-GS-15PK": 1
+    }
+  },
+  {
+    "caseId": "subscription-40",
+    "cohort": "later-initial",
+    "lines": [
+      {
+        "sku": "MUA-TOLU-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "_bundle_gifts_enabled",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Tolu"
+          },
+          {
+            "name": "Flavors",
+            "value": "1× Tropical Nectar, 1× Island Breeze, 1× Golden Sunrise"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "1× MUA-HYD-TN-15PK (Tropical Nectar), 1× MUA-HYD-IB-15PK (Island Breeze), 1× MUA-HYD-GS-15PK (Golden Sunrise)"
+          },
+          {
+            "name": "_subscription_gift_plan",
+            "value": "[{\"variantId\":47999051104308,\"quantity\":1}]"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "1× MW-STCKRPACK-1 (Stickers), 1× MW-BTTL-BLACK (MW Bottle)"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Stickers, MW Bottle"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Golden Sunrise"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-TN-15PK": 1,
+      "MUA-HYD-IB-15PK": 1,
+      "MUA-HYD-GS-15PK": 1
+    }
+  },
+  {
+    "caseId": "subscription-41",
+    "cohort": "renewal",
+    "lines": [
+      {
+        "sku": "MUA-TOLU-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Tolu"
+          },
+          {
+            "name": "Flavors",
+            "value": "2× Golden Sunrise, 1× Tropical Nectar"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "2× MUA-HYD-GS-15PK (Golden Sunrise), 1× MUA-HYD-TN-15PK (Tropical Nectar)"
+          },
+          {
+            "name": "_subscription_gift_plan",
+            "value": "[{\"variantId\":47999051104308,\"quantity\":1}]"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "1× MW-STCKRPACK-1 (Stickers), 1× MW-BTTL-BLACK (MW Bottle)"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Stickers, MW Bottle"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Golden Sunrise"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Golden Sunrise"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-GS-15PK": 2,
+      "MUA-HYD-TN-15PK": 1
+    }
+  },
+  {
+    "caseId": "subscription-42",
+    "cohort": "renewal",
+    "lines": [
+      {
+        "sku": "MUA-TOLU-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Tolu"
+          },
+          {
+            "name": "Flavors",
+            "value": "1× Tropical Nectar, 1× Island Breeze, 1× Golden Sunrise"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "1× MUA-HYD-TN-15PK (Tropical Nectar), 1× MUA-HYD-IB-15PK (Island Breeze), 1× MUA-HYD-GS-15PK (Golden Sunrise)"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "1× MW-STCKRPACK-1 (Stickers), 1× MW-FROTH-1 (Frother), 1× LW-SSTS-3XL (Short Sleeve T-Shirt (3XL))"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Stickers, Frother, Short Sleeve T-Shirt (3XL)"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Golden Sunrise"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-TN-15PK": 1,
+      "MUA-HYD-IB-15PK": 1,
+      "MUA-HYD-GS-15PK": 1
+    }
+  },
+  {
+    "caseId": "subscription-43",
+    "cohort": "later-initial",
+    "lines": [
+      {
+        "sku": "MUA-TOLU-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "_bundle_gifts_enabled",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Tolu"
+          },
+          {
+            "name": "Flavors",
+            "value": "1× Tropical Nectar, 1× Island Breeze, 1× Golden Sunrise"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "1× MUA-HYD-TN-15PK (Tropical Nectar), 1× MUA-HYD-IB-15PK (Island Breeze), 1× MUA-HYD-GS-15PK (Golden Sunrise)"
+          },
+          {
+            "name": "_subscription_gift_plan",
+            "value": "[{\"variantId\":47999051104308,\"quantity\":1}]"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "1× MW-STCKRPACK-1 (Stickers), 1× MW-BTTL-BLACK (MW Bottle)"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Stickers, MW Bottle"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Golden Sunrise"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-TN-15PK": 1,
+      "MUA-HYD-IB-15PK": 1,
+      "MUA-HYD-GS-15PK": 1
+    }
+  },
+  {
+    "caseId": "subscription-44",
+    "cohort": "renewal",
+    "lines": [
+      {
+        "sku": "MUA-HYD-IB-15PK",
+        "quantity": 1,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "subscription-45",
+    "cohort": "renewal",
+    "lines": [
+      {
+        "sku": "MUA-HYD-IB-15PK",
+        "quantity": 1,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "subscription-46",
+    "cohort": "renewal",
+    "lines": [
+      {
+        "sku": "MUA-HYD-GS-15PK",
+        "quantity": 2,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "subscription-47",
+    "cohort": "renewal",
+    "lines": [
+      {
+        "sku": "MUA-HYD-TN-15PK",
+        "quantity": 1,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "subscription-48",
+    "cohort": "renewal",
+    "lines": [
+      {
+        "sku": "MUA-HYD-GS-15PK",
+        "quantity": 1,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "subscription-49",
+    "cohort": "renewal",
+    "lines": [
+      {
+        "sku": "MUA-LIMA-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Lima"
+          },
+          {
+            "name": "Packaging",
+            "value": "Lima pack — stickers + Mua bottle + Live Well Shirt + Wellness Hat"
+          },
+          {
+            "name": "Flavors",
+            "value": "2× Tropical Nectar, 1× Island Breeze, 2× Golden Sunrise"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "[{\"variant_id\":47875669393460,\"quantity\":2,\"label\":\"Tropical Nectar\"},{\"variant_id\":47875709206580,\"quantity\":1,\"label\":\"Island Breeze\"},{\"variant_id\":47875709272116,\"quantity\":2,\"label\":\"Golden Sunrise\"}]"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "[{\"variant_id\":47997992206388,\"sku\":\"MW-FROTH-1\",\"quantity\":1,\"label\":\"Frother\"},{\"variant_id\":47997993025588,\"sku\":\"MW-STCKRPACK-1\",\"quantity\":1,\"label\":\"Stickers\"},{\"variant_id\":47997992992820,\"sku\":\"MW-TOTBG-1\",\"quantity\":1,\"label\":\"Tote Bag\"},{\"variant_id\":47999051104308,\"sku\":\"MW-BTTL-BLACK\",\"quantity\":1,\"label\":\"MW Bottle\"},{\"variant_id\":47998891262004,\"sku\":\"LW-SSTS-L\",\"quantity\":1,\"label\":\"Short Sleeve T-Shirt (L)\"}]"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Frother, Stickers, Tote Bag, MW Bottle, Short Sleeve T-Shirt (L)"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Golden Sunrise"
+          },
+          {
+            "name": "Pouch 4",
+            "value": "Golden Sunrise"
+          },
+          {
+            "name": "Pouch 5",
+            "value": "Tropical Nectar"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-TN-15PK": 2,
+      "MUA-HYD-IB-15PK": 1,
+      "MUA-HYD-GS-15PK": 2
+    }
+  },
+  {
+    "caseId": "subscription-50",
+    "cohort": "renewal",
+    "lines": [
+      {
+        "sku": "MUA-TOLU-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Tolu"
+          },
+          {
+            "name": "Flavors",
+            "value": "1× Island Breeze, 1× Tropical Nectar, 1× Golden Sunrise"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "1× MUA-HYD-IB-15PK (Island Breeze), 1× MUA-HYD-TN-15PK (Tropical Nectar), 1× MUA-HYD-GS-15PK (Golden Sunrise)"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "1× MW-STCKRPACK-1 (Stickers), 1× MW-FROTH-1 (Frother), 1× LW-SSTS-M (Short Sleeve T-Shirt (M))"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Stickers, Frother, Short Sleeve T-Shirt (M)"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Golden Sunrise"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-IB-15PK": 1,
+      "MUA-HYD-TN-15PK": 1,
+      "MUA-HYD-GS-15PK": 1
+    }
+  },
+  {
+    "caseId": "subscription-51",
+    "cohort": "renewal",
+    "lines": [
+      {
+        "sku": "MUA-HYD-IB-15PK",
+        "quantity": 1,
+        "properties": []
+      }
+    ],
+    "expectedPouches": {}
+  },
+  {
+    "caseId": "mixed-cart-sibling-1",
+    "cohort": "one-time-sibling",
+    "lines": [
+      {
+        "sku": "MUA-LIMA-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Lima"
+          },
+          {
+            "name": "Packaging",
+            "value": "Lima pack — stickers + Mua bottle + Live Well Shirt + Wellness Hat"
+          },
+          {
+            "name": "Flavors",
+            "value": "2× Tropical Nectar, 2× Island Breeze, 1× Golden Sunrise"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "[{\"variant_id\":47875669393460,\"quantity\":2,\"label\":\"Tropical Nectar\"},{\"variant_id\":47875709206580,\"quantity\":2,\"label\":\"Island Breeze\"},{\"variant_id\":47875709272116,\"quantity\":1,\"label\":\"Golden Sunrise\"}]"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "[{\"variant_id\":47997992206388,\"sku\":\"MW-FROTH-1\",\"quantity\":1,\"label\":\"Frother\"},{\"variant_id\":47997993025588,\"sku\":\"MW-STCKRPACK-1\",\"quantity\":1,\"label\":\"Stickers\"},{\"variant_id\":47997992992820,\"sku\":\"MW-TOTBG-1\",\"quantity\":1,\"label\":\"Tote Bag\"},{\"variant_id\":47999051104308,\"sku\":\"MW-BTTL-BLACK\",\"quantity\":1,\"label\":\"MW Bottle\"},{\"variant_id\":47998891360308,\"sku\":\"LW-SSTS-3XL\",\"quantity\":1,\"label\":\"Short Sleeve T-Shirt (3XL)\"}]"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Frother, Stickers, Tote Bag, MW Bottle, Short Sleeve T-Shirt (3XL)"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 2",
+            "value": "Tropical Nectar"
+          },
+          {
+            "name": "Pouch 3",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 4",
+            "value": "Island Breeze"
+          },
+          {
+            "name": "Pouch 5",
+            "value": "Golden Sunrise"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-TN-15PK": 2,
+      "MUA-HYD-IB-15PK": 2,
+      "MUA-HYD-GS-15PK": 1
+    }
+  },
+  {
+    "caseId": "mixed-cart-sibling-2",
+    "cohort": "one-time-sibling",
+    "lines": [
+      {
+        "sku": "MUA-TASI-BUN-26",
+        "quantity": 1,
+        "properties": [
+          {
+            "name": "_bundle_group",
+            "value": "group-1"
+          },
+          {
+            "name": "_bundle_primary",
+            "value": "true"
+          },
+          {
+            "name": "Bundle",
+            "value": "Tasi"
+          },
+          {
+            "name": "Flavors",
+            "value": "1× Island Breeze"
+          },
+          {
+            "name": "_inventory_plan",
+            "value": "1× MUA-HYD-IB-15PK (Island Breeze)"
+          },
+          {
+            "name": "_launch_extras",
+            "value": "1× MW-STCKRPACK-1 (Stickers)"
+          },
+          {
+            "name": "Free gifts",
+            "value": "Stickers"
+          },
+          {
+            "name": "Pouch 1",
+            "value": "Island Breeze"
+          }
+        ]
+      }
+    ],
+    "expectedPouches": {
+      "MUA-HYD-IB-15PK": 1
+    }
+  }
+]

@@ -26,7 +26,14 @@ It receives Shopify `orders/create` webhooks, reads `_inventory_plan` and `_laun
 - Current bundles with the founding-gifts switch off have no gift component plan. The theme writes `_bundle_gifts_enabled=false`; older bundles without any gift property also fulfill their pouches without gifts.
 - It skips fulfilled orders and orders with no bundle plan.
 - For bundle orders, it rereads the current Shopify order before editing and subtracts existing $0 component SKU quantities. A short Redis lock prevents overlapping webhook deliveries from editing the same order at once.
+- Multiple bundles can share a pouch flavor. Missing quantities are added on separate fully discounted lines, including when the order already contains a paid pouch or a partial set of free pouches. Replays still subtract existing free quantities before editing.
 - It creates components through an order edit with a full line-item discount, so the customer continues to pay only for the paid bundle line.
+
+## Historical subscription coverage
+
+Run `npm test`. The September 25, 2026 audit reviewed all 647 available orders and identified 51 subscription-related orders, including 29 from the preorder period and 12 renewals. Sanitized fixtures preserve their subscribed product lines and bundle properties, plus two one-time bundle siblings from mixed carts. See [fixture provenance](test/fixtures/README.md).
+
+Each snapshot is exercised as a future tagless renewal through the webhook, current-order read, order-edit mutations, and a replay. Tests independently check selected flavor quantities, full discounts, gift exclusion, and unchanged paid lines. The Shopify mock rejects repeated variants unless the mutation explicitly allows them, covering the two-Lima preorder case and partial-component recovery.
 
 ## Before production
 
