@@ -1,0 +1,96 @@
+{
+  "caseId": "multiple-tasi",
+  "lines": [
+    {
+      "sku": "MUA-TASI-BUN-26",
+      "quantity": 3,
+      "properties": [
+        {
+          "name": "_bundle_group",
+          "value": "group-1"
+        },
+        {
+          "name": "_bundle_primary",
+          "value": "true"
+        },
+        {
+          "name": "_bundle_gifts_enabled",
+          "value": "true"
+        },
+        {
+          "name": "Bundle",
+          "value": "Tasi"
+        },
+        {
+          "name": "Flavors",
+          "value": "1× Golden Sunrise"
+        },
+        {
+          "name": "_inventory_plan",
+          "value": "1× MUA-HYD-GS-15PK (Golden Sunrise)"
+        },
+        {
+          "name": "_launch_extras",
+          "value": "1× MW-STCKRPACK-1 (Stickers)"
+        },
+        {
+          "name": "Free gifts",
+          "value": "Stickers"
+        },
+        {
+          "name": "Pouch 1",
+          "value": "Golden Sunrise"
+        }
+      ]
+    },
+    {
+      "sku": "MUA-TASI-BUN-26",
+      "quantity": 1,
+      "properties": [
+        {
+          "name": "_bundle_group",
+          "value": "group-2"
+        },
+        {
+          "name": "_bundle_primary",
+          "value": "true"
+        },
+        {
+          "name": "_bundle_gifts_enabled",
+          "value": "true"
+        },
+        {
+          "name": "Bundle",
+          "value": "Tasi"
+        },
+        {
+          "name": "Flavors",
+          "value": "1× Tropical Nectar"
+        },
+        {
+          "name": "_inventory_plan",
+          "value": "1× MUA-HYD-TN-15PK (Tropical Nectar)"
+        },
+        {
+          "name": "_launch_extras",
+          "value": "1× MW-STCKRPACK-1 (Stickers)"
+        },
+        {
+          "name": "Free gifts",
+          "value": "Stickers"
+        },
+        {
+          "name": "Pouch 1",
+          "value": "Tropical Nectar"
+        }
+      ]
+    }
+  ],
+  "expectedPouches": {
+    "MUA-HYD-GS-15PK": 3,
+    "MUA-HYD-TN-15PK": 1
+  },
+  "expectedGifts": {
+    "MW-STCKRPACK-1": 4
+  }
+}

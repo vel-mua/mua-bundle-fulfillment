@@ -150,8 +150,8 @@ test(`a tagless ${legacyLima ? "legacy variant-only Lima" : "Tolu"} renewal adds
   assert.deepEqual(lookedUpSkus, pouchSkus);
   assert.deepEqual(addedQuantities, legacyLima ? [2, 1, 2] : [1, 1, 1]);
   assert.equal(discounts.length, 3);
-  assert.deepEqual(discounts.map((discount) => discount.fixedValue.amount),
-    legacyLima ? ["51.98", "25.99", "51.98"] : ["25.99", "25.99", "25.99"]);
+  assert.deepEqual(discounts.map((discount) => discount.percentValue), [100, 100, 100]);
+  assert.ok(discounts.every((discount) => !Object.hasOwn(discount, "fixedValue")));
   assert.ok(discounts.every((discount) => discount.description === "Mua bundle pouch component"));
 
   replay = true;

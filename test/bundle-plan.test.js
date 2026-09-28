@@ -139,6 +139,46 @@ test("rejects excess pouch quantities", () => {
   );
 });
 
+test("multiple Tolu and Lima bundles scale each flavor and qualifying first-order gift", () => {
+  for (const { line, expected } of [
+    { line: bundleLine({ quantity: 3, sellingPlan: true, launchExtras: "1x MW-STCKRPACK-1, 1x MW-BTTL-BLACK" }), expected: { "MUA-HYD-TN-15PK": 3, "MUA-HYD-IB-15PK": 3, "MUA-HYD-GS-15PK": 3, "MW-STCKRPACK-1": 3, "MW-BTTL-BLACK": 3 } },
+    { line: limaLine({ quantity: 2, sellingPlan: true, launchExtras: CURRENT_LIMA_EXTRAS + ", 1x MW-BTTL-BLACK" }), expected: { "MUA-HYD-TN-15PK": 4, "MUA-HYD-IB-15PK": 2, "MUA-HYD-GS-15PK": 4, "MW-STCKRPACK-1": 2, "MW-FROTH-1": 2, "MW-BTTL-BLACK": 2 } },
+  ]) {
+    const initial = componentPlan(order({ line_items: [line] }));
+    assert.deepEqual(Object.fromEntries(initial.map(c => [c.sku, c.quantity])), expected);
+    const renewal = componentPlan(order({ source_name: "subscription_contract_checkout_one", line_items: [line] }));
+    assert.deepEqual(Object.fromEntries(renewal.map(c => [c.sku, c.quantity])), Object.fromEntries(Object.entries(expected).filter(([sku]) => sku.startsWith("MUA-HYD-"))));
+  }
+});
+
+test("legacy JSON selections scale for both historical first orders and future renewals", () => {
+  const line = limaLine({ quantity: 2, inventoryPlan: JSON.stringify(LEGACY_LIMA_POUCHES), launchExtras: LEGACY_LIMA_EXTRAS });
+  const initial = componentPlan(order({ created_at: PRE_CUTOVER, line_items: [line] }));
+  assert.deepEqual(initial.filter(c => c.source === "pouch").map(c => c.quantity), [4, 2, 4]);
+  assert.ok(initial.filter(c => c.source === "gift").every(c => c.quantity === 2));
+  for (const created_at of [PRE_CUTOVER, POST_CUTOVER]) {
+    const renewal = componentPlan(order({ created_at, source_name: "subscription_contract_checkout_one", line_items: [line] }));
+    assert.deepEqual(renewal.map(c => c.quantity), [4, 2, 4]);
+    assert.ok(renewal.every(c => c.source === "pouch"));
+  }
+});
+
+test("multiple parents still require a valid per-bundle recipe", () => {
+  assertInvalidPlan(order({ line_items: [bundleLine({ quantity: 2, inventoryPlan: "6x MUA-HYD-TN-15PK" })] }), /requires exactly 3 pouch/);
+  assertInvalidPlan(order({ line_items: [bundleLine({ quantity: 2, launchExtras: "2x MW-STCKRPACK-1" })] }), /invalid launch extras/);
+});
+
+test("invalid parent quantities and component overflow are rejected before editing", () => {
+  for (const quantity of [undefined, null, 0, -1, 1.5, "bad", Infinity, 2147483648]) {
+    const line = bundleLine();
+    line.quantity = quantity;
+    for (const created_at of [PRE_CUTOVER, POST_CUTOVER]) {
+      assertInvalidPlan(order({ created_at, line_items: [line] }), /positive integer parent quantity/);
+    }
+  }
+  assertInvalidPlan(order({ line_items: [limaLine({ quantity: 2147483647 })] }), /component quantity.*supported range/);
+});
+
 test("rejects excess gift quantities", () => {
   assertInvalidPlan(
     order({ line_items: [bundleLine({ launchExtras: "2x MW-STCKRPACK-1" })] }),

@@ -24,3 +24,7 @@ Expected bundle quantities were counted from `Pouch 1` through `Pouch 5` and ind
 `subscription-03` contains two Lima subscriptions with different bundle groups: together they require 4 Tropical Nectar, 3 Island Breeze, and 3 Golden Sunrise pouches. This fixture reproduced Shopify's duplicate-variant rejection before `allowDuplicates: true` was added. The tests also cover partial free components and a paid same-flavor pouch already on the order, and replay each successful edit to check idempotency.
 
 Coverage is historical Shopify order data, not a live Recharge contract inventory. Shopify API behavior is mocked using its documented duplicate-variant rule; the tests do not create live renewals or charge customers. The mutation was validated against Shopify's Admin schema. See [orderEditAddVariant documentation](https://shopify.dev/docs/api/admin-graphql/2026-07/mutations/orderEditAddVariant).
+
+## September 28 follow-up
+
+`multiple-tasi.json` preserves MUA1656's two Tasi subscription lines, with synthetic group IDs and no customer details. The first line has quantity 3 and a single Golden Sunrise selection per bundle; the second has quantity 1 and a Tropical Nectar selection. Both promise stickers. The expected initial components are 3 Golden Sunrise, 1 Tropical Nectar, and 4 sticker packs; recurring orders receive only the four pouches. This parent-quantity pattern did not occur in the original subscription audit and reproduced a 422 rejection before the quantity-scaling fix.

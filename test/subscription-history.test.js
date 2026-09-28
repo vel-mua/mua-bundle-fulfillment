@@ -12,7 +12,9 @@ const totals = (lines) => lines.reduce((out, line) => {
   return out;
 }, {});
 
-async function exerciseRenewal(t, fixture, existing = []) {
+async function exerciseRenewal(t, fixture, existing = [], { initial = false, addedUnitPrice = "25.99" } = {}) {
+  const expectedComponents = { ...fixture.expectedPouches, ...(initial ? fixture.expectedGifts : {}) };
+  const sourceName = initial ? "web" : "subscription_contract_checkout_one";
   const secret = "history-test-secret";
   const env = {
     SHOPIFY_API_SECRET: secret,
@@ -37,7 +39,7 @@ async function exerciseRenewal(t, fixture, existing = []) {
     currentQuantity: line.quantity,
     customAttributes: line.properties.map(p => ({ key: p.name, value: p.value })),
     // Renewal identification must work before tags/selling plans are populated.
-    sellingPlan: null,
+    sellingPlan: initial ? { sellingPlanId: "gid://shopify/SellingPlan/1" } : null,
     discountedUnitPriceSet: { shopMoney: { amount: "50.00" } },
   }));
   const freeLines = existing.map(line => ({
@@ -61,12 +63,12 @@ async function exerciseRenewal(t, fixture, existing = []) {
     if (query.includes("query BundleOrderSnapshot")) {
       data = { order: {
         id: "gid://shopify/Order/1", createdAt: "2026-10-01T00:00:00Z",
-        sourceName: "subscription_contract_checkout_one", tags: [], displayFulfillmentStatus: "UNFULFILLED",
+        sourceName, tags: [], displayFulfillmentStatus: "UNFULFILLED",
         lineItems: { nodes: committedLines, pageInfo: { hasNextPage: false } },
       } };
     } else if (query.includes("query VariantBySku")) {
       const sku = JSON.parse(variables.query.slice(4));
-      assert.ok(Object.hasOwn(fixture.expectedPouches, sku), `Unexpected gift or flavor: ${sku}`);
+      assert.ok(Object.hasOwn(expectedComponents, sku), `Unexpected gift or flavor: ${sku}`);
       data = { productVariants: { nodes: [{ id: sku, sku, price: "25.99" }] } };
     } else if (query.includes("mutation BeginEdit")) {
       stagedLines = structuredClone(committedLines);
@@ -82,7 +84,7 @@ async function exerciseRenewal(t, fixture, existing = []) {
         const added = {
           id: `gid://shopify/CalculatedLineItem/${nextId++}`, sku: variables.variantId,
           currentQuantity: variables.quantity, customAttributes: [], sellingPlan: null,
-          discountedUnitPriceSet: { shopMoney: { amount: "25.99" } },
+          discountedUnitPriceSet: { shopMoney: { amount: addedUnitPrice } },
         };
         stagedLines.push(added);
         data = { orderEditAddVariant: { calculatedLineItem: { id: added.id }, userErrors: [] } };
@@ -90,9 +92,9 @@ async function exerciseRenewal(t, fixture, existing = []) {
     } else if (query.includes("mutation DiscountComponent")) {
       const line = stagedLines.find(line => line.id === variables.lineItemId);
       assert.ok(line);
-      assert.equal(variables.discount.description, "Mua bundle pouch component");
-      assert.equal(variables.discount.fixedValue.currencyCode, "USD");
-      assert.equal(Math.round(Number(variables.discount.fixedValue.amount) * 100), 2599 * line.currentQuantity);
+      assert.equal(variables.discount.description, `Mua bundle ${Object.hasOwn(fixture.expectedPouches, line.sku) ? "pouch" : "gift"} component`);
+      assert.equal(variables.discount.percentValue, 100);
+      assert.equal(Object.hasOwn(variables.discount, "fixedValue"), false);
       line.discountedUnitPriceSet.shopMoney.amount = "0.00";
       data = { orderEditAddLineItemDiscount: { userErrors: [] } };
     } else if (query.includes("mutation CommitEdit")) {
@@ -109,7 +111,7 @@ async function exerciseRenewal(t, fixture, existing = []) {
   });
 
   async function deliver() {
-    const body = Buffer.from(JSON.stringify({ id: 1, source_name: "subscription_contract_checkout_one", tags: [], line_items: fixture.lines }));
+    const body = Buffer.from(JSON.stringify({ id: 1, source_name: sourceName, tags: [], line_items: fixture.lines }));
     const request = new EventEmitter();
     request.method = "POST";
     request.headers = { "x-shopify-hmac-sha256": crypto.createHmac("sha256", secret).update(body).digest("base64") };
@@ -127,10 +129,10 @@ async function exerciseRenewal(t, fixture, existing = []) {
 
   const first = await deliver();
   assert.equal(first.statusCode, 200, JSON.stringify(first.body));
-  const hasBundle = Object.keys(fixture.expectedPouches).length > 0;
+  const hasBundle = Object.keys(expectedComponents).length > 0;
   assert.equal(first.body.status, hasBundle ? "processed" : "skipped");
   assert.equal(commits, hasBundle ? 1 : 0);
-  assert.deepEqual(totals(committedLines.filter(line => Number(line.discountedUnitPriceSet.shopMoney.amount) === 0)), fixture.expectedPouches);
+  assert.deepEqual(totals(committedLines.filter(line => Number(line.discountedUnitPriceSet.shopMoney.amount) === 0)), expectedComponents);
   assert.deepEqual(committedLines.slice(0, originalCopy.length), originalCopy);
   const beforeReplay = mutations;
   const second = await deliver();
@@ -151,3 +153,15 @@ test("two Lima subscriptions retain ten pouches when some free components alread
 test("a paid same-flavor pouch does not block or replace free bundle pouches", t => exerciseRenewal(t, twoBundles, [
   { sku: "MUA-HYD-TN-15PK", quantity: 2, price: "25.99" },
 ]));
+
+const multipleTasi = require("./fixtures/multiple-tasi.json");
+test("MUA1656: first subscription adds three Golden Sunrise, one Tropical Nectar, and four stickers", t =>
+  exerciseRenewal(t, multipleTasi, [], { initial: true }));
+test("MUA1656: renewal adds four pouches with no stickers", t => exerciseRenewal(t, multipleTasi));
+test("MUA1656: components stay free when Shopify's order price differs from the catalog price", t =>
+  exerciseRenewal(t, multipleTasi, [], { initial: true, addedUnitPrice: "29.50" }));
+test("MUA1656: partial first-order repair adds only remaining pouches and stickers", t =>
+  exerciseRenewal(t, multipleTasi, [
+    { sku: "MUA-HYD-GS-15PK", quantity: 2, price: "0.00" },
+    { sku: "MW-STCKRPACK-1", quantity: 1, price: "0.00" },
+  ], { initial: true }));
